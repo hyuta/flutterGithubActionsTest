@@ -7,12 +7,12 @@ on:
 
 jobs:
   build-android:
-    if: ${{ github.event.issue.pull_request }} && github.event.comment.body == 'please test'
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.base.sha }} 
+          ref: refs/pull/${{ github.event.issue.number }}/merge
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
