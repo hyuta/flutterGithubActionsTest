@@ -7,10 +7,9 @@ on:
 
 jobs:
   build-android:
-    if: ${{ github.event.issue.pull_request }} && github.event.comment.body == 'please test'
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.issue.number }}
       - uses: actions/checkout@v3
         with:
           ref: refs/pull/${{ github.event.issue.number }}/merge
